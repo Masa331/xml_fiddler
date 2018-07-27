@@ -21,6 +21,126 @@ String.prototype.repeat = function(times) {
   return (new Array(times + 1)).join(this);
 };
 
+class OpenTag extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: 'tag', attributes: [] };
+  }
+
+  render() {
+    return (
+      <span>{'<' + this.props.name + '>'}</span>
+    );
+  }
+}
+
+class CloseTag extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: 'tag' };
+  }
+
+  render() {
+    return (
+      <span>{'</' + this.props.name + '>'}</span>
+    );
+  }
+}
+
+class EmptyTag extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: 'tag' };
+  }
+
+  render() {
+    return (
+      <span>{'<' + this.props.name + ' />'}</span>
+    );
+  }
+}
+
+class EmptyNode extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: '', indentation: 0 };
+  }
+
+  spaces() {
+    return <span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(this.props.indentation) }} />
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        {this.spaces()}
+        <EmptyTag name={this.props.name} />
+      </React.Fragment>
+    );
+  }
+}
+
+class SubNode extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: '', indentation: 0, elements: [] };
+  }
+
+  spaces() {
+    return <span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(this.props.indentation) }} />
+  }
+
+  render() {
+    return (
+      <div>
+        {this.spaces()}
+        <OpenTag name={this.props.name} />
+        <br />
+        { this.props.elements.map((element, index) => (
+          <XmlNode key={index} indentation={this.props.indentation + 2} {...element} />
+        ))}
+        {this.spaces()}
+        <CloseTag name={this.props.name} />
+      </div>
+    );
+  }
+}
+
+class EndNode extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: '', text: '', indentation: 0 };
+  }
+
+  spaces() {
+    return <span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(this.props.indentation) }} />
+  }
+
+  render() {
+    return (
+      <div>
+        {this.spaces()}
+        <OpenTag name={this.props.name}/>
+        {this.props.text}
+        <CloseTag name={this.props.name} />
+      </div>
+    );
+  }
+}
+
+const node = (element, indentation, index) => {
+  return <XmlNode key={index} indentation={0} {...element} />;
+
+  var isEmptyNode = (!this.props.elements);
+  var isEndNode = (this.props.elements) && (this.props.elements.length === 1) && this.props.elements[0].type === "text";
+}
+
 class XmlNode extends Component {
   constructor(props) {
     super(props);
@@ -37,33 +157,20 @@ class XmlNode extends Component {
     var isEndNode = (this.props.elements) && (this.props.elements.length === 1) && this.props.elements[0].type === "text";
 
     if(isEmptyNode) {
-      return(
-        <span>{this.spaces()}{'<'}{this.props.name}{' />'}</span>
+      return (
+        <EmptyNode name={this.props.name} indentation={this.props.indentation} />
       );
     } else if(isEndNode) {
-      return(
-        <div>
-          {this.spaces()}
-          <span>{'<'}{this.props.name}{'>'}</span>
-          <span>{this.props.elements[0].text}</span>
-          <span>{'</'}{this.props.name}{'>'}</span>
-      </div>
+      return (
+        <EndNode name={this.props.name} indentation={this.props.indentation} text={this.props.elements[0].text} />
       );
     } else {
-      return(
-        <div>
-          <span>{this.spaces()}{'<'}{this.props.name}{'>'}</span>
-          <br />
-          { this.props.elements.map((element, index) => {
-            return <XmlNode key={index} indentation={this.props.indentation + 2} {...element} />
-          })}
-          <span>{this.spaces()}{'</'}{this.props.name}{'>'}</span>
-      </div>
+      return (
+        <SubNode
+          name={this.props.name}
+          indentation={this.props.indentation}
+          elements={this.props.elements} />
       );
-    }
-
-    if(this.props.type === "text") {
-    } else {
     }
   }
 }
@@ -76,7 +183,7 @@ const Declaration = (props) => {
     }
   }
 
-  return(
+  return (
     <span>
       {'<?xml'} {attrs.join(' ')} {'?>'}
     </span>
@@ -89,11 +196,9 @@ class App extends Component {
       <div>
         <Declaration {...parsed.declaration} />
 
-        <div>
-          { parsed.elements.map((element, index) => {
-            return <XmlNode key={index} indentation={0} {...element} />
-          })}
-        </div>
+        { parsed.elements.map((element, index) => (
+          node(element, 0, index)
+        ))}
       </div>
     );
   }
