@@ -29,8 +29,28 @@ class OpenTag extends Component {
   }
 
   render() {
+    let controls;
+
+    if (this.props.collapse) {
+      controls =
+        <React.Fragment>
+          <span className="node-control" onClick={this.props.expand}>+</span>
+          &nbsp;
+          <span className="node-control" onClick={this.props.collapse}>-</span>
+          &nbsp;
+          <span className="node-control" onClick={this.props.expandAll}>++</span>
+          &nbsp;
+          <span className="node-control" onClick={this.props.collapseAll}>--</span>
+        </React.Fragment>
+    } else {
+      controls = <span></span>
+    }
+
     return (
-      <span>{'<' + this.props.name + '>'}</span>
+      <React.Fragment>
+        <span>{'<' + this.props.name + '>'}</span>
+        { controls }
+      </React.Fragment>
     );
   }
 }
@@ -88,23 +108,50 @@ class SubNode extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { name: '', indentation: 0, elements: [] };
+    // jak to udelat, abych nemusel mit collapse a collapseAll ale jen collapse a nejakym zpsuobem rekurzivne nad vsema childrens
+    //   zavolal rerender s collapse  = true aby se skryly???
+    this.state = {
+      name: '',
+      indentation: 0,
+      elements: [],
+      collapsed: false
+      collapsedAll: false
+    };
   }
 
   spaces() {
     return <span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(this.props.indentation) }} />
   }
 
+  collapse = () => {
+    this.setState({ collapsed: true });
+  };
+
+  expand = () => {
+    this.setState({ collapsed: false });
+  };
+
   render() {
+    let content;
+
+    if(this.state.collapsed) {
+      content = <br/>
+    } else {
+      content =
+        <React.Fragment>
+          <br />
+          { this.props.elements.map((element, index) => (
+            <XmlNode key={index} indentation={this.props.indentation + 2} {...element} />
+          ))}
+          {this.spaces()}
+        </React.Fragment>
+    }
+
     return (
       <div>
         {this.spaces()}
-        <OpenTag name={this.props.name} />
-        <br />
-        { this.props.elements.map((element, index) => (
-          <XmlNode key={index} indentation={this.props.indentation + 2} {...element} />
-        ))}
-        {this.spaces()}
+        <OpenTag name={this.props.name} collapse={this.collapse} expand={this.expand} />
+        { content }
         <CloseTag name={this.props.name} />
       </div>
     );
