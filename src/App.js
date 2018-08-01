@@ -114,8 +114,8 @@ class SubNode extends Component {
       name: '',
       indentation: 0,
       elements: [],
-      collapsed: false
-      collapsedAll: false
+      collapsed: false,
+      collapsedChildren: false
     };
   }
 
@@ -141,7 +141,7 @@ class SubNode extends Component {
         <React.Fragment>
           <br />
           { this.props.elements.map((element, index) => (
-            <XmlNode key={index} indentation={this.props.indentation + 2} {...element} />
+            node(element, this.props.indentation + 2, index)
           ))}
           {this.spaces()}
         </React.Fragment>
@@ -182,44 +182,25 @@ class EndNode extends Component {
 }
 
 const node = (element, indentation, index) => {
-  return <XmlNode key={index} indentation={0} {...element} />;
-
-  var isEmptyNode = (!this.props.elements);
-  var isEndNode = (this.props.elements) && (this.props.elements.length === 1) && this.props.elements[0].type === "text";
-}
-
-class XmlNode extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { type: 'text', text: '', indentation: 0 };
-  }
-
-  spaces() {
-    return <span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(this.props.indentation) }} />
-  }
-
-  render() {
-    var isEmptyNode = (!this.props.elements);
-    var isEndNode = (this.props.elements) && (this.props.elements.length === 1) && this.props.elements[0].type === "text";
+  var isEmptyNode = (!element.elements);
+  var isEndNode = (element.elements) && (element.elements.length === 1) && element.elements[0].type === "text";
 
     if(isEmptyNode) {
       return (
-        <EmptyNode name={this.props.name} indentation={this.props.indentation} />
+        <EmptyNode name={element.name} indentation={indentation} />
       );
     } else if(isEndNode) {
       return (
-        <EndNode name={this.props.name} indentation={this.props.indentation} text={this.props.elements[0].text} />
+        <EndNode name={element.name} indentation={indentation} text={element.elements[0].text} />
       );
     } else {
       return (
         <SubNode
-          name={this.props.name}
-          indentation={this.props.indentation}
-          elements={this.props.elements} />
+          name={element.name}
+          indentation={indentation}
+          elements={element.elements} />
       );
     }
-  }
 }
 
 const Declaration = (props) => {
