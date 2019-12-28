@@ -8,12 +8,12 @@ class OpenTag extends Component {
   }
 
   render() {
-    let controls = (this.props.functions || []).map((func) => {
+    let controls = (this.props.functions || []).map((func, index) => {
       const label = func[0];
       const handler = func[1];
 
       return(
-        <React.Fragment>
+        <React.Fragment key={index}>
           <span className="node-control" onClick={handler}>{label}</span>
           &nbsp;
         </React.Fragment>

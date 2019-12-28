@@ -35,14 +35,9 @@ class App extends Component {
       <main>
         <nav>
           <h1>XML Fiddler</h1>
-          <p>Upload file to start fiddling</p>
-            label
-          <input type="file" id="file-Upload" onChange={this.resetFile}/>
+          <p>Upload XML file to start fiddling</p>
+          <input type="file" onChange={this.resetFile}/>
         </nav>
-
-        <br/>
-        <br/>
-        <br/>
 
         <Fiddler parsed = { this.state.source } />
       </main>

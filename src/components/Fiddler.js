@@ -4,10 +4,6 @@ import nodeFactory from './nodeFactory.js';
 import Declaration from './Declaration.js';
 
 class Fiddler extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let content;
 

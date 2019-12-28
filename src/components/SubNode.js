@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
-import EmptyNode from './EmptyNode.js';
-import EndNode from './EndNode.js';
 
 import nodeFactory from './nodeFactory.js';
 
