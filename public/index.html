@@ -6,10 +6,27 @@
     <title>XML Viewer</title>
 
     <style type="text/css" media="all">
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  border: 1px solid grey;
+
+  padding: 20px;
 }
 
 .node-control {

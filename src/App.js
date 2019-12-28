@@ -1,34 +1,51 @@
 import React, { Component } from 'react';
 import convert from 'xml-js';
 
-import nodeFactory from './components/nodeFactory.js';
-import Declaration from './components/Declaration.js';
+import Fiddler from './components/Fiddler.js';
 
-const xml = `
-<?xml version='1.0' encoding='utf-8'?>
-<note importance='high'>
-  <empty/>
-  <title>Look Ma!</title>
-  <todo>ol sok</todo>
-  <details>
-    <param>neco</param>
-  </details>
-</note>
-`;
+function parseXml(xml) {
+  const json = convert.xml2json(xml, { compact: false });
+  const parsed = JSON.parse(json);
 
-const json = convert.xml2json(xml, { compact: false });
-const parsed = JSON.parse(json);
+  return parsed;
+}
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { source: {} };
+
+    this.resetFile = this.resetFile.bind(this);
+  }
+
+  resetFile(event) {
+    event.target.files[0].text()
+      .then((result) => {
+        const newSource = parseXml(result);
+        this.setState({ source: newSource });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
     return (
-      <div>
-        <Declaration {...parsed.declaration} />
+      <main>
+        <nav>
+          <h1>XML Fiddler</h1>
+          <p>Upload file to start fiddling</p>
+            label
+          <input type="file" id="file-Upload" onChange={this.resetFile}/>
+        </nav>
 
-        { parsed.elements.map((element, index) => (
-          nodeFactory(element, 0, index, false)
-        ))}
-      </div>
+        <br/>
+        <br/>
+        <br/>
+
+        <Fiddler parsed = { this.state.source } />
+      </main>
     );
   }
 }
