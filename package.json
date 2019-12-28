@@ -1,7 +1,9 @@
 {
   "name": "xml_viewer",
-  "version": "0.1.0",
-  "private": true,
+  "description":"Fiddle with XML.",
+  "author":"Premysl Donat <pdonat@seznam.cz> (http://masa331.github.io/)",
+  "homepage":"https://github.com/Masa331/xml_fiddler",
+  "license": "MIT",
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
