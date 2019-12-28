@@ -4,8 +4,6 @@ import CloseTag from './CloseTag.js';
 import EmptyNode from './EmptyNode.js';
 import EndNode from './EndNode.js';
 
-import nodeFactory from './nodeFactory.js';
-
 const repeat = function(str, times) {
   return (new Array(times + 1)).join(str);
 };
@@ -16,7 +14,6 @@ const coll = function myself (objs = []) {
     obj.elements = myself(obj.elements);
     return obj;
   })
-  console.log(result);
   return result;
 }
 
@@ -26,16 +23,12 @@ const exp = function myself (objs = []) {
     obj.elements = myself(obj.elements);
     return obj;
   })
-  console.log(result);
   return result;
 }
 
 class SubNode extends Component {
   constructor(props) {
     super(props);
-
-
-    console.log("v konstruktoru: ", this.props.name, ", collapsed: ", this.props.collapsed);
 
     this.state = {
       name: this.props.name,
@@ -58,19 +51,16 @@ class SubNode extends Component {
   };
 
   collapseChildren = () => {
-    console.clear();
     this.setState({ elements: coll(this.state.elements) });
   };
 
   expandChildren = () => {
-    console.clear();
     this.setState({ elements: exp(this.state.elements) });
   };
 
   render() {
     let content;
 
-    console.log("v subnode: ", this.state.name, ", collapsed: ", this.state.collapsed);
     let subNodes = this.state.elements.map((element, index) => {
       // return nodeFactory(element, this.state.indentation + 2, index);
       var isEmptyNode = (!element.elements) || (element.elements.length === 0);
@@ -86,7 +76,6 @@ class SubNode extends Component {
           <EndNode key={index} name={element.name} indentation={indentation} text={element.elements[0].text} />
         );
       } else {
-        console.log("v factory c.2: ", element.name, ", collapsed: ", element.collapsed);
         return (
           <SubNode
             key={index}

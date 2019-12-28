@@ -4,7 +4,6 @@ import SubNode from './SubNode.js';
 import EndNode from './EndNode.js';
 
 const nodeFactory = (element, indentation, index) => {
-  console.log("v factory: ", element.name, ", collapsed: ", element.collapsed);
   var isEmptyNode = (!element.elements) || (element.elements.length === 0);
   var isEndNode = (element.elements) && (element.elements.length === 1) && element.elements[0].type === "text";
 
@@ -17,7 +16,6 @@ const nodeFactory = (element, indentation, index) => {
       <EndNode key={index} name={element.name} indentation={indentation} text={element.elements[0].text} />
     );
   } else {
-    console.log("v factory c.2: ", element.name, ", collapsed: ", element.collapsed);
     return (
       <SubNode
         key={index}
