@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
+import convert from 'xml-js';
 
 import nodeFactory from './components/nodeFactory.js';
 import Declaration from './components/Declaration.js';
-import convert from 'xml-js';
-
-// const convert = require('xml-js');
 
 const xml = `
 <?xml version='1.0' encoding='utf-8'?>

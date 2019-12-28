@@ -8,22 +8,17 @@ class OpenTag extends Component {
   }
 
   render() {
-    let controls;
+    let controls = (this.props.functions || []).map((func) => {
+      const label = func[0];
+      const handler = func[1];
 
-    if (this.props.collapse) {
-      controls =
+      return(
         <React.Fragment>
-          <span className="node-control" onClick={this.props.expand}>+</span>
+          <span className="node-control" onClick={handler}>{label}</span>
           &nbsp;
-          <span className="node-control" onClick={this.props.collapse}>-</span>
-          &nbsp;
-          <span className="node-control" onClick={this.props.expandChildren}>++</span>
-          &nbsp;
-          <span className="node-control" onClick={this.props.collapseChildren}>--</span>
         </React.Fragment>
-    } else {
-      controls = <span></span>
-    }
+      )
+    })
 
     return (
       <React.Fragment>
