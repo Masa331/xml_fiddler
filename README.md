@@ -1,6 +1,6 @@
 # XML Fiddler
 
-XML Fiddler.
+XML Fiddler
 
 ## Notes
 
@@ -8,7 +8,7 @@ XML Fiddler.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Masa331/react_xml_viewer.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Masa331/xml_fiddler.
 
 ## License
 
