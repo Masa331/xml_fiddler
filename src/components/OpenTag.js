@@ -22,7 +22,7 @@ class OpenTag extends Component {
 
     return (
       <React.Fragment>
-        <span>{'<' + this.props.name + '>'}</span>
+        <span>{'<'}<span className="start-tag">{this.props.name}</span>{'>'}</span>
         { controls }
       </React.Fragment>
     );

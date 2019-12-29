@@ -32,7 +32,7 @@ class App extends Component {
 
   render() {
     return (
-      <main>
+      <main className="highlight">
         <nav>
           <h1>XML Fiddler</h1>
           <p>Upload XML file to start fiddling</p>
