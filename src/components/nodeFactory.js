@@ -9,7 +9,7 @@ const nodeFactory = (element, index) => {
 
   if(isEmptyNode) {
     return (
-      [<EmptyTag key={index} name={element.name} />]
+      [<EmptyTag key={index} name={element.name} attributes={element.attributes} />]
     );
   } else if(isEndNode) {
     return (
@@ -23,6 +23,7 @@ const nodeFactory = (element, index) => {
         key={index}
         name={element.name}
         elements={element.elements}
+        attributes={element.attributes}
         ref={componentRef}
       />, componentRef]
     );

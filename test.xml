@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<note importance='high'>
+<note importance='high' due="1.1.2021">
   <empty/>
+  <emptyWithAttributes importance='low'/>
   <title>Look Ma!</title>
   <todo>ol sok</todo>
   <details>
@@ -13,5 +14,8 @@
     <complicatedParam2>
       <param>something</param>
     </complicatedParam2>
+    <complicatedParam3>
+      <param><![CDATA[this is gonna be fun]]></param>
+    </complicatedParam3>
   </details>
 </note>

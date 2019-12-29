@@ -89,7 +89,7 @@ class SubNode extends Component {
     return (
       <div className={classes}>
         <span>
-          <OpenTag name={this.props.name} />
+          <OpenTag name={this.props.name} attributes={this.props.attributes} />
           { controls }
         </span>
         <div className="sub-nodes">
