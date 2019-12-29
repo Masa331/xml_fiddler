@@ -1,6 +1,6 @@
 import React from 'react';
 import SubNode from './SubNode.js';
-import EndNode from './EndNode.js';
+import TextNode from './TextNode.js';
 import EmptyTag from './EmptyTag.js';
 
 const nodeFactory = (element, index) => {
@@ -13,7 +13,7 @@ const nodeFactory = (element, index) => {
     );
   } else if(isEndNode) {
     return (
-      [<EndNode key={index} name={element.name} text={element.elements[0].text} />]
+      [<TextNode key={index} name={element.name} text={element.elements[0].text} />]
     );
   } else {
     const componentRef = React.createRef();

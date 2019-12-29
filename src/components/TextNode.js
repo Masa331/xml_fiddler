@@ -2,7 +2,7 @@ import React from 'react';
 import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
 
-function EndNode(props) {
+function TextNode(props) {
   return (
     <div className="sub-level">
       <OpenTag name={props.name}/>
@@ -12,4 +12,4 @@ function EndNode(props) {
   );
 }
 
-export default EndNode;
+export default TextNode;
