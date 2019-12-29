@@ -8,21 +8,19 @@ function repeat(str, times) {
   return (new Array(times + 1)).join(str);
 };
 
-function coll(objs = []) {
-  let result = objs.map((obj) => {
-    obj.collapsed = true;
-    obj.elements = coll(obj.elements);
-    return obj;
-  })
-  return result;
-}
+function hasCollapsibleSubElements(elements = []) {
+  let result;
 
-function exp(objs = []) {
-  let result = objs.map((obj) => {
-    obj.collapsed = false;
-    obj.elements = exp(obj.elements);
-    return obj;
-  })
+  elements.forEach((element) => {
+    if (element.elements) {
+    element.elements.forEach((element2) => {
+      if (element2.elements && element2.elements.length > 0) {
+        result = true;
+      }
+    });
+    };
+  });
+
   return result;
 }
 
@@ -36,6 +34,8 @@ class SubNode extends Component {
       elements: this.props.elements || [],
       collapsed: this.props.collapsed
     };
+
+    this.childRefs = [];
   }
 
   spaces() {
@@ -50,37 +50,52 @@ class SubNode extends Component {
     this.setState({ collapsed: false });
   };
 
-  collapseChildren = () => {
-    this.setState({ elements: coll(this.state.elements) });
+  recursiveCollapse = () => {
+    this.childRefs.forEach((ref) => {
+      ref.current.collapse();
+      ref.current.recursiveCollapse();
+    });
   };
 
-  expandChildren = () => {
-    this.setState({ elements: exp(this.state.elements) });
+  recursiveExpand = () => {
+    this.childRefs.forEach((ref) => {
+      ref.current.expand();
+      ref.current.recursiveExpand();
+    });
   };
 
   render() {
-    let content;
     let functions = [];
     let closeTag;
+    let classes = '';
 
+    let newRefs = [];
     let subNodes = this.state.elements.map((element, index) => {
-      return nodeFactory(element, this.state.indentation + 2, index);
+      const [component, ref] = nodeFactory(element, this.state.indentation + 2, index);
+      if (ref) {
+        newRefs.push(ref);
+      };
+      return component;
     })
+    this.childRefs = newRefs;
 
     if(this.state.collapsed) {
-      content = <br/>;
       functions.push(["+", this.expand]);
+      classes = 'display-none';
     } else { // Expanded
-      content =
-        <React.Fragment>
-          <br />
-          { subNodes }
-          {this.spaces()}
-        </React.Fragment>;
       functions.push(["-", this.collapse]);
-      functions.push(["++", this.expandChildren]);
-      functions.push(["--", this.collapseChildren]);
-      closeTag = <CloseTag name={this.props.name} />;
+
+      const collapsibleSubElements = hasCollapsibleSubElements(this.state.elements);
+      if (collapsibleSubElements) {
+        functions.push(["++", this.recursiveExpand]);
+        functions.push(["--", this.recursiveCollapse]);
+      }
+
+      closeTag =
+        <React.Fragment>
+          { this.spaces() }
+          <CloseTag name={this.props.name} />
+        </React.Fragment>;
     }
 
     return (
@@ -90,7 +105,9 @@ class SubNode extends Component {
           name={this.props.name}
           functions = { functions }
         />
-        { content }
+        <div className={ classes }>
+          { subNodes }
+        </div>
         { closeTag }
       </div>
     );

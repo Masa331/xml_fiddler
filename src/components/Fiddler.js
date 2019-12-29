@@ -12,9 +12,9 @@ class Fiddler extends Component {
         <div>
           <Declaration {...this.props.parsed.declaration} />
 
-          { this.props.parsed.elements.map((element, index) => (
-            nodeFactory(element, 0, index, false)
-          ))}
+          { this.props.parsed.elements.map((element, index) => {
+            return(nodeFactory(element, 0, index, false)[0])
+          })}
         </div>
     } else {
       content =

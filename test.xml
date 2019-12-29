@@ -4,6 +4,14 @@
   <title>Look Ma!</title>
   <todo>ol sok</todo>
   <details>
-    <param>neco</param>
+    <param>something 1</param>
+    <param>something 2</param>
+
+    <complicatedParam1>
+      <param>something</param>
+    </complicatedParam1>
+    <complicatedParam2>
+      <param>something</param>
+    </complicatedParam2>
   </details>
 </note>

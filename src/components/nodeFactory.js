@@ -9,21 +9,24 @@ const nodeFactory = (element, indentation, index) => {
 
   if(isEmptyNode) {
     return (
-      <EmptyNode key={index} name={element.name} indentation={indentation} />
+      [<EmptyNode key={index} name={element.name} indentation={indentation} />]
     );
   } else if(isEndNode) {
     return (
-      <EndNode key={index} name={element.name} indentation={indentation} text={element.elements[0].text} />
+      [<EndNode key={index} name={element.name} indentation={indentation} text={element.elements[0].text} />]
     );
   } else {
+    const componentRef = React.createRef();
+
     return (
-      <SubNode
+      [<SubNode
         key={index}
         name={element.name}
         indentation={indentation}
         elements={element.elements}
         collapsed={element.collapsed}
-      />
+        ref={componentRef}
+      />, componentRef]
     );
   }
 }
