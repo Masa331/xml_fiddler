@@ -3,12 +3,6 @@ import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
 
 class EndNode extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { name: '', text: '', indentation: 0 };
-  }
-
   spaces() {
     return <span dangerouslySetInnerHTML={{ __html: "&nbsp;".repeat(this.props.indentation) }} />
   }

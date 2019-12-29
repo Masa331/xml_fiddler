@@ -6,12 +6,6 @@ const repeat = function(str, times) {
 };
 
 class EmptyNode extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { name: '', indentation: 0 };
-  }
-
   spaces() {
     return <span dangerouslySetInnerHTML={{ __html: repeat("&nbsp;", this.props.indentation) }} />
   }

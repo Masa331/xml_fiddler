@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
 class OpenTag extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { name: 'tag', attributes: [] };
-  }
-
   render() {
     let controls = (this.props.functions || []).map((func, index) => {
       const label = func[0];
