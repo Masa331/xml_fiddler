@@ -3,17 +3,22 @@ import SubNode from './SubNode.js';
 import TextNode from './TextNode.js';
 import EmptyTag from './EmptyTag.js';
 
-const nodeFactory = (element, index) => {
-  var isEmptyNode = (!element.elements) || (element.elements.length === 0);
-  var isEndNode = (element.elements) && (element.elements.length === 1) && element.elements[0].type === "text";
+function isEndNode(node) {
+  const result = (node.elements) && (node.elements.length === 1) && (node.elements[0].type === "text" || node.elements[0].type === "cdata");
+
+  return result;
+}
+
+function nodeFactory(element, index) {
+  const isEmptyNode = (!element.elements) || (element.elements.length === 0);
 
   if(isEmptyNode) {
     return (
       [<EmptyTag key={index} name={element.name} attributes={element.attributes} />]
     );
-  } else if(isEndNode) {
+  } else if(isEndNode(element)) {
     return (
-      [<TextNode key={index} name={element.name} text={element.elements[0].text} />]
+      [<TextNode key={index} name={element.name} text={element.elements[0].text} cdata={element.elements[0].cdata} />]
     );
   } else {
     const componentRef = React.createRef();

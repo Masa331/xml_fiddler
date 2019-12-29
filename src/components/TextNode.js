@@ -3,10 +3,12 @@ import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
 
 function TextNode(props) {
+  const value = props.text || props.cdata;
+
   return (
     <div className="sub-level">
       <OpenTag name={props.name}/>
-      {props.text}
+      {value}
       <CloseTag name={props.name} />
     </div>
   );

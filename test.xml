@@ -15,7 +15,7 @@
       <param>something</param>
     </complicatedParam2>
     <complicatedParam3>
-      <param><![CDATA[this is gonna be fun]]></param>
+      <verySpecialParam><![CDATA[this is gonna be fun]]></verySpecialParam>
     </complicatedParam3>
   </details>
 </note>
