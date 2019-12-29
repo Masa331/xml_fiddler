@@ -32,17 +32,15 @@ class SubNode extends Component {
     this.setState({ collapsed: false });
   };
 
-  recursiveCollapse = () => {
+  collapseSubNodes = () => {
     this.childRefs.forEach((ref) => {
       ref.current.collapse();
-      ref.current.recursiveCollapse();
     });
   };
 
-  recursiveExpand = () => {
+  expandSubNodes = () => {
     this.childRefs.forEach((ref) => {
       ref.current.expand();
-      ref.current.recursiveExpand();
     });
   };
 
@@ -72,8 +70,8 @@ class SubNode extends Component {
 
       const collapsibleSubElements = hasCollapsibleSubElements(this.props.elements);
       if (collapsibleSubElements) {
-        functions.push(["++", this.recursiveExpand]);
-        functions.push(["--", this.recursiveCollapse]);
+        functions.push(["++", this.expandSubNodes]);
+        functions.push(["--", this.collapseSubNodes]);
       }
     }
 
