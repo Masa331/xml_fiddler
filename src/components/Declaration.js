@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Declaration = (props) => {
+function Declaration(props) {
   var attrs = [];
   for (var attr in props.attributes) {
     if (props.attributes.hasOwnProperty(attr)) {

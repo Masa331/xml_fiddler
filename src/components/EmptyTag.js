@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class EmptyTag extends Component {
-  render() {
-    return (
-      <span>{'<'}<span className="end-tag">{this.props.name}</span>{'/>'}</span>
-    );
-  }
+function EmptyTag(props) {
+  return (
+    <span>{'<'}<span className="end-tag">{props.name}</span>{'/>'}</span>
+  );
 }
 
 export default EmptyTag;

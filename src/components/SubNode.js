@@ -21,17 +21,8 @@ function hasCollapsibleSubElements(elements = []) {
 }
 
 class SubNode extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: this.props.name,
-      elements: this.props.elements || [],
-      collapsed: this.props.collapsed
-    };
-
-    this.childRefs = [];
-  }
+  state = {};
+  childRefs = [];
 
   collapse = () => {
     this.setState({ collapsed: true });
@@ -60,7 +51,7 @@ class SubNode extends Component {
     let classes = 'sub-level';
 
     let newRefs = [];
-    let subNodes = this.state.elements.map((element, index) => {
+    let subNodes = this.props.elements.map((element, index) => {
       const [component, ref] = nodeFactory(element, index);
       if (ref) {
         newRefs.push(ref);
@@ -75,7 +66,7 @@ class SubNode extends Component {
     } else { // Expanded
       functions.push(["-", this.collapse]);
 
-      const collapsibleSubElements = hasCollapsibleSubElements(this.state.elements);
+      const collapsibleSubElements = hasCollapsibleSubElements(this.props.elements);
       if (collapsibleSubElements) {
         functions.push(["++", this.recursiveExpand]);
         functions.push(["--", this.recursiveCollapse]);

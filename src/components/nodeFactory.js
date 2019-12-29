@@ -1,7 +1,7 @@
 import React from 'react';
-import EmptyNode from './EmptyNode.js';
 import SubNode from './SubNode.js';
 import EndNode from './EndNode.js';
+import EmptyTag from './EmptyTag.js';
 
 const nodeFactory = (element, index) => {
   var isEmptyNode = (!element.elements) || (element.elements.length === 0);
@@ -9,7 +9,7 @@ const nodeFactory = (element, index) => {
 
   if(isEmptyNode) {
     return (
-      [<EmptyNode key={index} name={element.name} />]
+      [<EmptyTag key={index} name={element.name} />]
     );
   } else if(isEndNode) {
     return (
@@ -23,7 +23,6 @@ const nodeFactory = (element, index) => {
         key={index}
         name={element.name}
         elements={element.elements}
-        collapsed={element.collapsed}
         ref={componentRef}
       />, componentRef]
     );
