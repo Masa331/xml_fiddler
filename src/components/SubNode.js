@@ -4,10 +4,6 @@ import CloseTag from './CloseTag.js';
 
 import nodeFactory from './nodeFactory.js';
 
-function repeat(str, times) {
-  return (new Array(times + 1)).join(str);
-};
-
 function hasCollapsibleSubElements(elements = []) {
   let result;
 
@@ -30,16 +26,11 @@ class SubNode extends Component {
 
     this.state = {
       name: this.props.name,
-      indentation: this.props.indentation,
       elements: this.props.elements || [],
       collapsed: this.props.collapsed
     };
 
     this.childRefs = [];
-  }
-
-  spaces() {
-    return <span dangerouslySetInnerHTML={{ __html: repeat("&nbsp;", this.props.indentation) }} />
   }
 
   collapse = () => {
@@ -66,12 +57,11 @@ class SubNode extends Component {
 
   render() {
     let functions = [];
-    let closeTag;
-    let classes = '';
+    let classes = 'sub-level';
 
     let newRefs = [];
     let subNodes = this.state.elements.map((element, index) => {
-      const [component, ref] = nodeFactory(element, this.state.indentation + 2, index);
+      const [component, ref] = nodeFactory(element, index);
       if (ref) {
         newRefs.push(ref);
       };
@@ -81,7 +71,7 @@ class SubNode extends Component {
 
     if(this.state.collapsed) {
       functions.push(["+", this.expand]);
-      classes = 'display-none';
+      classes += ' hide-children';
     } else { // Expanded
       functions.push(["-", this.collapse]);
 
@@ -90,25 +80,13 @@ class SubNode extends Component {
         functions.push(["++", this.recursiveExpand]);
         functions.push(["--", this.recursiveCollapse]);
       }
-
-      closeTag =
-        <React.Fragment>
-          { this.spaces() }
-          <CloseTag name={this.props.name} />
-        </React.Fragment>;
     }
 
     return (
-      <div>
-        {this.spaces()}
-        <OpenTag
-          name={this.props.name}
-          functions = { functions }
-        />
-        <div className={ classes }>
-          { subNodes }
-        </div>
-        { closeTag }
+      <div className={classes}>
+        <OpenTag name={this.props.name} functions = { functions } />
+        { subNodes }
+        <CloseTag name={this.props.name} />
       </div>
     );
   }

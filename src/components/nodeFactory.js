@@ -3,17 +3,17 @@ import EmptyNode from './EmptyNode.js';
 import SubNode from './SubNode.js';
 import EndNode from './EndNode.js';
 
-const nodeFactory = (element, indentation, index) => {
+const nodeFactory = (element, index) => {
   var isEmptyNode = (!element.elements) || (element.elements.length === 0);
   var isEndNode = (element.elements) && (element.elements.length === 1) && element.elements[0].type === "text";
 
   if(isEmptyNode) {
     return (
-      [<EmptyNode key={index} name={element.name} indentation={indentation} />]
+      [<EmptyNode key={index} name={element.name} />]
     );
   } else if(isEndNode) {
     return (
-      [<EndNode key={index} name={element.name} indentation={indentation} text={element.elements[0].text} />]
+      [<EndNode key={index} name={element.name} text={element.elements[0].text} />]
     );
   } else {
     const componentRef = React.createRef();
@@ -22,7 +22,6 @@ const nodeFactory = (element, indentation, index) => {
       [<SubNode
         key={index}
         name={element.name}
-        indentation={indentation}
         elements={element.elements}
         collapsed={element.collapsed}
         ref={componentRef}

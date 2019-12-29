@@ -7,18 +7,15 @@ class OpenTag extends Component {
       const handler = func[1];
 
       return(
-        <React.Fragment key={index}>
-          <span className="node-control" onClick={handler}>{label}</span>
-          &nbsp;
-        </React.Fragment>
+        <span key={index} className="node-control" onClick={handler}>{label}</span>
       )
     })
 
     return (
-      <React.Fragment>
+      <span>
         <span>{'<'}<span className="start-tag">{this.props.name}</span>{'>'}</span>
         { controls }
-      </React.Fragment>
+      </span>
     );
   }
 }

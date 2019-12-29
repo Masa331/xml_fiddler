@@ -6,16 +6,9 @@ const repeat = function(str, times) {
 };
 
 class EmptyNode extends Component {
-  spaces() {
-    return <span dangerouslySetInnerHTML={{ __html: repeat("&nbsp;", this.props.indentation) }} />
-  }
-
   render() {
     return (
-      <React.Fragment>
-        {this.spaces()}
-        <EmptyTag name={this.props.name} />
-      </React.Fragment>
+      <EmptyTag name={this.props.name} />
     );
   }
 }

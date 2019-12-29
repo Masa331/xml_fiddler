@@ -13,7 +13,7 @@ class Fiddler extends Component {
           <Declaration {...this.props.parsed.declaration} />
 
           { this.props.parsed.elements.map((element, index) => {
-            return(nodeFactory(element, 0, index, false)[0])
+            return(nodeFactory(element, index, false)[0])
           })}
         </div>
     } else {

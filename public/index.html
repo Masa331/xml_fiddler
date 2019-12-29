@@ -33,8 +33,15 @@ nav {
 .node-control {
   cursor: pointer;
 }
-.display-none {
+.hide-children > * {
   display: none;
+}
+.hide-children > *:first-child {
+  display: block;
+}
+
+.sub-level > .sub-level {
+  margin-left: 10px;
 }
 
 <!-- XML styles from Firefox -->
