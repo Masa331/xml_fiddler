@@ -12,4 +12,4 @@ function TextNode(props) {
   );
 }
 
-export default TextNode;
+export default React.memo(TextNode);

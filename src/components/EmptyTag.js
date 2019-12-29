@@ -2,8 +2,8 @@ import React from 'react';
 
 function EmptyTag(props) {
   return (
-    <span>{'<'}<span className="end-tag">{props.name}</span>{'/>'}</span>
+    <span className="tag">&lt;{props.name}/></span>
   );
 }
 
-export default EmptyTag;
+export default React.memo(EmptyTag);

@@ -9,10 +9,8 @@ function Declaration(props) {
   }
 
   return (
-    <span>
-      {'<?xml'} {attrs.join(' ')} {'?>'}
-    </span>
+    <span>{'<?xml'} {attrs.join(' ')} {'?>'}</span>
   );
 }
 
-export default Declaration;
+export default React.memo(Declaration);

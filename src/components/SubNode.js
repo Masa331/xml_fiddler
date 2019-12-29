@@ -46,6 +46,10 @@ class SubNode extends Component {
     });
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (this.state.collapsed !== nextState.collapsed);
+  }
+
   render() {
     let functions = [];
     let classes = 'sub-level';
@@ -73,10 +77,24 @@ class SubNode extends Component {
       }
     }
 
+    let controls = functions.map((func, index) => {
+      const label = func[0];
+      const handler = func[1];
+
+      return(
+        <span key={index} className="node-control" onClick={handler}>{label}</span>
+      );
+    });
+
     return (
       <div className={classes}>
-        <OpenTag name={this.props.name} functions = { functions } />
-        { subNodes }
+        <span>
+          <OpenTag name={this.props.name} />
+          { controls }
+        </span>
+        <div className="sub-nodes">
+          { subNodes }
+        </div>
         <CloseTag name={this.props.name} />
       </div>
     );
