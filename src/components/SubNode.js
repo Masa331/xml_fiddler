@@ -82,7 +82,7 @@ class SubNode extends Component {
       const handler = func[1];
 
       return(
-        <span key={index} className="node-control" onClick={handler}>{label}</span>
+        <button key={index} className="node-control" onClick={handler}>{label}</button>
       );
     });
 
