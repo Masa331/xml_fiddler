@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<person importance='high' due="1.1.2021">
+  <title>bank clerk</title>
+
+  <firstName>Premysl</firstName>
+  <lastName>Donat</lastName>
+</person>
