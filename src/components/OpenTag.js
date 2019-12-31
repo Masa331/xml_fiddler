@@ -1,12 +1,10 @@
 import React from 'react';
+import Attribute from './Attribute.js';
 
 function OpenTag(props) {
-  let attrs = [];
-  for (let attr in props.attributes) {
-    const formatted = <span> <span className="attribute-name">{attr}</span>="<span className="attribute-value">{props.attributes[attr]}</span>"</span>;
-
-    attrs.push(formatted);
-  }
+  const attrs = Object.entries(props.attributes || {}).map(([key, value], index) => {
+    return <Attribute key={index} name={key} value={value}/>;
+  });
 
   return (
     <span className="tag">&lt;{props.name}{attrs}></span>

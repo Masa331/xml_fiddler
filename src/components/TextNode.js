@@ -7,7 +7,7 @@ function TextNode(props) {
 
   return (
     <div className="sub-level">
-      <OpenTag name={props.name}/>
+      <OpenTag name={props.name} attributes={props.attributes}/>
       {value}
       <CloseTag name={props.name} />
     </div>

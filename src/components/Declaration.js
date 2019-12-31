@@ -1,15 +1,13 @@
 import React from 'react';
+import Attribute from './Attribute.js';
 
 function Declaration(props) {
-  var attrs = [];
-  for (var attr in props.attributes) {
-    if (props.attributes.hasOwnProperty(attr)) {
-      attrs.push(`${attr}="${props.attributes[attr]}"`)
-    }
-  }
+  const attrs = Object.entries(props.attributes || {}).map(([key, value], index) => {
+    return <Attribute key={index} name={key} value={value}/>;
+  });
 
   return (
-    <span>{'<?xml'} {attrs.join(' ')} {'?>'}</span>
+    <span>{'<?xml'} {attrs} {'?>'}</span>
   );
 }
 
