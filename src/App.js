@@ -44,7 +44,7 @@ class App extends Component {
         </nav>
         <main className="highlight">
 
-          <Fiddler parsed = { this.state.source } />
+          <Fiddler key={Math.random()} parsed={this.state.source} />
         </main>
       </React.Fragment>
     );
