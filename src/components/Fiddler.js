@@ -8,7 +8,7 @@ function Fiddler(props) {
 
   if (Boolean(props.parsed.elements)) {
     content =
-      <div>
+      <React.Fragment>
         <Declaration {...props.parsed.declaration} />
 
         { props.parsed.elements.map((element, index) => {
@@ -21,7 +21,7 @@ function Fiddler(props) {
               cdata={element.elements[0].cdata}
             />;
         })}
-      </div>
+      </React.Fragment>
   } else {
     content =
       <React.Fragment>

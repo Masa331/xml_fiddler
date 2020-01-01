@@ -4,116 +4,97 @@ import CloseTag from './CloseTag.js';
 import TextNode from './TextNode.js';
 import EmptyTag from './EmptyTag.js';
 
-function hasCollapsibleSubElements(elements = []) {
-  let result;
-
-  elements.forEach((element) => {
-    if (element.elements) {
-    element.elements.forEach((element2) => {
-      if (element2.elements && element2.elements.length > 0) {
-        result = true;
-      }
-    });
-    };
-  });
-
-  return result;
-}
-
 class Node extends Component {
   constructor(props) {
     super(props);
 
-    this.isEndNode = this.isEndNode.bind(this);
+    this.containsOnlyText = this.containsOnlyText.bind(this);
+    this.isEmpty = this.isEmpty.bind(this);
+    this.hasMembers = this.hasMembers.bind(this);
+
+    this.collapse = this.collapse.bind(this);
+    this.expand = this.expand.bind(this);
+    this.collapseSubNodes = this.collapseSubNodes.bind(this);
+    this.expandSubNodes = this.expandSubNodes.bind(this);
   }
 
   state = {};
   childRefs = [];
 
-  collapse = () => {
+  collapse() {
     this.setState({ collapsed: true });
+
+    if (this.textRef) {
+      this.textRef.current.collapse();
+    }
   };
 
-  expand = () => {
+  expand() {
     this.setState({ collapsed: false });
+
+    if (this.textRef) {
+      this.textRef.current.expand();
+    }
   };
 
-  collapseSubNodes = () => {
+  collapseSubNodes() {
     this.childRefs.forEach((ref) => {
       ref.current.collapse();
     });
+
   };
 
-  expandSubNodes = () => {
+  expandSubNodes() {
     this.childRefs.forEach((ref) => {
       ref.current.expand();
     });
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return (this.state.collapsed !== nextState.collapsed);
-  // }
-
   render() {
-    const isEmptyNode = (!this.props.elements) || (this.props.elements.length === 0);
-
-    if(isEmptyNode) {
+    if(this.isEmpty(this.props.elements)) {
       return <EmptyTag { ...this.props } />;
-    } else if(this.isEndNode(this.props)) {
-      return ( <TextNode { ...this.props } />);
+    } else if(this.containsOnlyText(this.props.elements)) {
+      const componentRef = React.createRef();
+      this.textRef = componentRef;
+      return <TextNode ref={componentRef} { ...this.props } />;
     } else {
-      let functions = [];
-      let classes = 'sub-level';
-
       let newRefs = [];
       let subNodes = this.props.elements.map((element, index) => {
         const componentRef = React.createRef();
         newRefs.push(componentRef);
 
-        const component = <Node
+        return <Node
           key={index}
           name={element.name}
           elements={element.elements}
           attributes={element.attributes}
           ref={componentRef}
-        />
-
-        return component;
+        />;
       });
       this.childRefs = newRefs;
 
+      let collapsedClass;
       if(this.state.collapsed) {
-        functions.push(["+", this.expand]);
-        classes += ' hide-children';
-      } else { // Expanded
-        functions.push(["-", this.collapse]);
-
-        const collapsibleSubElements = hasCollapsibleSubElements(this.props.elements);
-        if (collapsibleSubElements) {
-          functions.push(["++", this.expandSubNodes]);
-          functions.push(["--", this.collapseSubNodes]);
-        }
+        collapsedClass = 'collapsed';
+      } else {
+        collapsedClass = 'expanded';
       }
+      const nodeClasses = `node ${collapsedClass}`;
 
-      let controls = functions.map((func, index) => {
-        const label = func[0];
-        const handler = func[1];
-
-        return(
-          <button key={index} className="node-control" onClick={handler}>{label}</button>
-        );
-      });
+      const functions = [
+        ["+", this.expand, 'hide-in-expanded'],
+        ["-", this.collapse, 'hide-in-collapsed'],
+        ["++", this.expandSubNodes, 'hide-in-collapsed'],
+        ["--", this.collapseSubNodes, 'hide-in-collapsed']
+      ];
 
       return (
-        <div className={classes}>
-          <span>
-            <OpenTag name={this.props.name} attributes={this.props.attributes} />
-            { controls }
-          </span>
-          <div className="sub-nodes">
+        <div className={nodeClasses}>
+          <div className={collapsedClass}><OpenTag name={this.props.name} attributes={this.props.attributes} functions={functions} /></div>
+          <div className="sub-nodes hide-in-collapsed">
             { subNodes }
           </div>
-          <CloseTag name={this.props.name} />
+          <div className="hide-in-collapsed"><CloseTag name={this.props.name} /></div>
         </div>
       );
     }
@@ -121,10 +102,22 @@ class Node extends Component {
 
   // private
 
-  isEndNode(node) {
-    const result = (node.elements) && (node.elements.length === 1) && (node.elements[0].type === "text" || node.elements[0].type === "cdata");
+  containsOnlyText(nodes) {
+    return nodes.every((node) => {
+      return node.type === 'text' || node.type === 'cdata';
+    });
+  }
 
-    return result;
+  isEmpty(array) {
+    return !this.hasMembers(array);
+  }
+
+  hasMembers(array) {
+    return Array.isArray(array) && array.length;
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (this.state.collapsed !== nextState.collapsed);
   }
 }
 

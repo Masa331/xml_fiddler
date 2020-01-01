@@ -32,15 +32,17 @@ class App extends Component {
 
   render() {
     return (
-      <main className="highlight">
+      <React.Fragment>
         <nav>
           <h1>XML Fiddler</h1>
           <p>Upload XML file to start fiddling</p>
           <input type="file" onChange={this.resetFile}/>
         </nav>
+        <main className="highlight">
 
-        <Fiddler parsed = { this.state.source } />
-      </main>
+          <Fiddler parsed = { this.state.source } />
+        </main>
+      </React.Fragment>
     );
   }
 }
