@@ -3,7 +3,7 @@ import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
 
 function TextNode(props) {
-  const value = props.text || props.cdata;
+  const value = props.elements[0].text || props.elements[0].cdata;
 
   return (
     <div className="sub-level">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import nodeFactory from './nodeFactory.js';
+import Node from './Node.js';
 import Declaration from './Declaration.js';
 
 function Fiddler(props) {
@@ -12,7 +12,14 @@ function Fiddler(props) {
         <Declaration {...props.parsed.declaration} />
 
         { props.parsed.elements.map((element, index) => {
-          return(nodeFactory(element, index, false)[0])
+          return <Node
+              key={index}
+              name={element.name}
+              elements={element.elements}
+              attributes={element.attributes}
+              text={element.elements[0].text}
+              cdata={element.elements[0].cdata}
+            />;
         })}
       </div>
   } else {
