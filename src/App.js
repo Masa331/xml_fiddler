@@ -35,8 +35,12 @@ class App extends Component {
       <React.Fragment>
         <nav>
           <h1>XML Fiddler</h1>
-          <p>Upload XML file to start fiddling</p>
+          <p>Upload XML to play with</p>
           <input type="file" onChange={this.resetFile}/>
+
+          <footer>
+            <p>By <a href="https://github.com/Masa331">me</a>. Report issues <a href="https://github.com/Masa331/xml_fiddler">here</a>.</p>
+          </footer>
         </nav>
         <main className="highlight">
 
