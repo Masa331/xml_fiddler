@@ -5,6 +5,10 @@ XML Fiddler
 ## Notes
 
 * https://developer.mozilla.org/en-US/docs/Web/API/File
+* https://www.npmjs.com/search?q=xml2js
+* https://www.npmjs.com/package/xml2js-xpath
+* https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
+* https://www.w3schools.com/xml/xml_parser.asp
 
 ## Contributing
 
