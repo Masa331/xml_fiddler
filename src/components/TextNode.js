@@ -22,7 +22,12 @@ class TextNode extends Component {
   };
 
   render() {
-    const value = this.props.elements[0].text || this.props.elements[0].cdata;
+    let value;
+    if (this.props.elements[0].text) {
+      value = this.props.elements[0].text;
+    } else if(this.props.elements[0].cdata) {
+      value = `<![CDATA[${this.props.elements[0].cdata}]]>`
+    }
 
     let collapsedClass;
     if(this.state.collapsed) {
