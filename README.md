@@ -2,7 +2,7 @@
 
 XML Fiddler
 
-Runes here: https://masa331.github.io/xml_fiddler/
+Runs here: https://masa331.github.io/xml_fiddler/
 
 ## Notes
 
