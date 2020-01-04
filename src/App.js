@@ -6,7 +6,6 @@ import Fiddler from './components/Fiddler.js';
 function parseXml(xml) {
   const json = convert.xml2json(xml, { compact: false });
   const parsed = JSON.parse(json);
-  console.log(parsed);
 
   return parsed;
 }
