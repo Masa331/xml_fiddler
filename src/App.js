@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import convert from 'xml-js';
 
 import Fiddler from './components/Fiddler.js';
+import Values from './components/Values.js';
 
 function addXpaths(tree, parentXPath) {
   tree.xpath = parentXPath + '/' + tree.name;
@@ -22,6 +23,7 @@ function parseXml(xml) {
 
   return withXpaths;
 }
+
 
 const exampleXml = `
 <?xml version='1.0' encoding='utf-8'?>
@@ -51,10 +53,11 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { source: {} };
+    this.state = { source: {}, xpaths: [] };
 
     this.resetFile = this.resetFile.bind(this);
     this.loadExample = this.loadExample.bind(this);
+    this.groupFunc = this.groupFunc.bind(this);
   }
 
   resetFile(event) {
@@ -73,6 +76,13 @@ class App extends Component {
     this.setState({ source: newSource });
   }
 
+  groupFunc(value) {
+    let newXpaths = this.state.xpaths.slice();
+    newXpaths.push(value);
+
+    this.setState({ xpaths: newXpaths });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -87,8 +97,12 @@ class App extends Component {
           </footer>
         </nav>
 
+        <section>
+          <Values parsed={this.state.source} xpaths={this.state.xpaths} />
+        </section>
+
         <main className="highlight">
-          <Fiddler key={Math.random()} parsed={this.state.source} />
+          <Fiddler key={Math.random()} parsed={this.state.source} groupFunc={this.groupFunc} />
         </main>
       </React.Fragment>
     );

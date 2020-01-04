@@ -62,7 +62,7 @@ class Node extends Component {
     } else if(this.containsOnlyText(this.props.elements)) {
       const componentRef = React.createRef();
       this.textRef = componentRef;
-      return <TextNode ref={componentRef} { ...this.props } />;
+      return <TextNode ref={componentRef} { ...this.props } groupFunc={this.props.groupFunc} />;
     } else {
       let newRefs = [];
       let subNodes = this.props.elements.map((element, index) => {
@@ -76,6 +76,7 @@ class Node extends Component {
           attributes={element.attributes}
           ref={componentRef}
           xpath={element.xpath}
+          groupFunc={this.props.groupFunc}
         />;
       });
       this.childRefs = newRefs;

@@ -20,6 +20,7 @@ function Fiddler(props) {
               text={element.elements[0].text}
               cdata={element.elements[0].cdata}
               xpath={element.xpath}
+              groupFunc={props.groupFunc}
             />;
         })}
       </React.Fragment>
@@ -30,9 +31,7 @@ function Fiddler(props) {
       </React.Fragment>
   }
 
-  return (
-     content
-  );
+  return content;
 }
 
 export default Fiddler;
