@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import convert from 'xml-js';
 
 import Fiddler from './components/Fiddler.js';
+import Extracts from './components/Extracts.js';
 
 function addXpaths(tree, parentXPath) {
   tree.xpath = parentXPath + '/' + tree.name;
@@ -51,17 +52,21 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { source: {} };
+    this.state = { key: '', source: {}, xpaths: [] };
 
     this.resetFile = this.resetFile.bind(this);
     this.loadExample = this.loadExample.bind(this);
+    this.addExtract = this.addExtract.bind(this);
+    this.removeExtract = this.removeExtract.bind(this);
   }
 
   resetFile(event) {
     event.target.files[0].text()
       .then((result) => {
         const newSource = parseXml(result);
-        this.setState({ source: newSource });
+        const key = Math.random(); //TODO: this is here so Fiddler components
+        // resets every time new document is loaded. Otherwise Old document stayed there. Probably could be fixed a better way..
+        this.setState({ source: newSource, key: key });
       })
       .catch((error) => {
         console.error(error);
@@ -73,10 +78,25 @@ class App extends Component {
     this.setState({ source: newSource });
   }
 
+  addExtract(value) {
+    let newXpaths = this.state.xpaths.slice();
+    newXpaths.push(value);
+
+    this.setState({ xpaths: newXpaths });
+  }
+
+  removeExtract(value) {
+    const newXpaths = this.state.xpaths.filter((xpath) => {
+      return xpath !== value;
+    });
+
+    this.setState({ xpaths: newXpaths });
+  }
+
   render() {
     return (
       <React.Fragment>
-        <nav>
+        <div className="floater">
           <h1>XML Fiddler</h1>
           <p>Upload XML to play with</p>
           <input type="file" onChange={this.resetFile}/>
@@ -85,10 +105,28 @@ class App extends Component {
           <footer>
             <p>By <a href="https://github.com/Masa331">me</a>. Report issues <a href="https://github.com/Masa331/xml_fiddler">here</a>.</p>
           </footer>
-        </nav>
+        </div>
 
-        <main className="highlight">
-          <Fiddler key={Math.random()} parsed={this.state.source} />
+        <section id="extracts">
+          <div className="nav-container">
+            <nav>
+              <a className="extracts" href="#extracts"><b>Extracts</b></a>
+              <a className="document" href="#document">Document</a>
+            </nav>
+          </div>
+
+          <Extracts parsed={this.state.source} xpaths={this.state.xpaths} removeExtract={this.removeExtract} />
+        </section>
+
+        <main className="highlight" id="document">
+          <div className="nav-container">
+            <nav>
+              <a className="extracts" href="#extracts">Extracts</a>
+              <a className="document" href="#document"><b>Document</b></a>
+            </nav>
+          </div>
+
+          <Fiddler key={this.state.key} parsed={this.state.source} addExtract={this.addExtract} />
         </main>
       </React.Fragment>
     );

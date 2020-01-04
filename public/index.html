@@ -21,7 +21,7 @@ body {
   font-size: 13px;
 }
 
-nav {
+div.floater {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -36,12 +36,42 @@ nav {
 
   background: floralwhite;
 }
-
-nav > footer {
+div.floater > footer {
   margin-top: 10px;
   border-top: 1px solid grey;
   color: grey;
 }
+
+      div.nav-container {
+        padding: 10px;
+        border-bottom: 1px solid grey;
+      }
+      nav {
+        width: 210px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        font-size: 1rem;
+      }
+      nav > a {
+        grid-row: 1;
+      }
+      nav > a.document{
+        grid-column: 1;
+      }
+      nav > a.extracts{
+        grid-column: 2;
+      }
+
+      #document:not(:target) {
+        display: none;
+      }
+      #extracts:not(:target) {
+        display: none;
+      }
+      #extracts:not(:target) + #document:not(:target) {
+        display: block;
+      }
 
 .node-control {
   cursor: pointer;
@@ -58,6 +88,9 @@ nav > footer {
   text-decoration: underline;
 }
 .node-control + .node-control {
+  margin-left: 5px;
+}
+b + .node-control {
   margin-left: 5px;
 }
 
@@ -87,6 +120,10 @@ nav > footer {
 
 .attribute-value {
   color: rgb(26, 26, 166);
+}
+
+.extracts-container {
+  padding: 10px;
 }
     </style>
   </head>

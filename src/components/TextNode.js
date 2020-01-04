@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
 import NodeControl from './NodeControl.js';
-import { copyToClipboard } from './utils.js';
+import { copyToClipboard, extractText } from './utils.js';
 
 class TextNode extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class TextNode extends Component {
     this.collapse = this.collapse.bind(this);
     this.expand = this.expand.bind(this);
     this.copyXpath = this.copyXpath.bind(this);
+    this.addExtract = this.addExtract.bind(this);
   }
 
   state = {};
@@ -27,13 +28,12 @@ class TextNode extends Component {
     copyToClipboard(this.props.xpath);
   };
 
+  addExtract() {
+    this.props.addExtract(this.props.xpath);
+  };
+
   render() {
-    let value;
-    if (this.props.elements[0].text) {
-      value = this.props.elements[0].text;
-    } else if(this.props.elements[0].cdata) {
-      value = `<![CDATA[${this.props.elements[0].cdata}]]>`
-    }
+    const value = extractText(this.props);
 
     let collapsedClass;
     if(this.state.collapsed) {
@@ -46,7 +46,8 @@ class TextNode extends Component {
     const functions = [
       ["+", this.expand, 'hide-in-expanded', 'expand node'],
       ["-", this.collapse, 'hide-in-collapsed', 'collapse node'],
-      ["xpath", this.copyXpath, '', this.props.xpath + ' - click to copy']
+      ["xpath", this.copyXpath, '', this.props.xpath + ' - click to copy'],
+      ["extract", this.addExtract, '', 'extract values from this xpath']
     ]
 
     const controls = functions.map(([label, handler, classes, title], index) => {

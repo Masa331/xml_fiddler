@@ -20,19 +20,19 @@ function Fiddler(props) {
               text={element.elements[0].text}
               cdata={element.elements[0].cdata}
               xpath={element.xpath}
+              addExtract={props.addExtract}
+              removeExtract={props.removeExtract}
             />;
         })}
       </React.Fragment>
   } else {
     content =
       <React.Fragment>
-        no xml uploaded
+        No xml uploaded.
       </React.Fragment>
   }
 
-  return (
-     content
-  );
+  return content;
 }
 
 export default Fiddler;
