@@ -21,7 +21,7 @@ body {
   font-size: 13px;
 }
 
-nav {
+div.floater {
   position: fixed;
   top: 20px;
   right: 20px;
@@ -36,28 +36,36 @@ nav {
 
   background: floralwhite;
 }
-
-section {
-  position: fixed;
-  top: 300px;
-  right: 20px;
-
-  border: 1px solid grey;
-  border-radius: 10px;
-
-  padding-top: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 0px;
-
-  background: floralwhite;
-}
-
-nav > footer {
+div.floater > footer {
   margin-top: 10px;
   border-top: 1px solid grey;
   color: grey;
 }
+
+      nav {
+        width: 200px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      nav > a {
+        grid-row: 1;
+      }
+      nav > a.document{
+        grid-column: 1;
+      }
+      nav > a.groups{
+        grid-column: 2;
+      }
+
+      #document:not(:target) {
+        display: none;
+      }
+      #groups:not(:target) {
+        display: none;
+      }
+      #groups:not(:target) + #document:not(:target) {
+        display: block;
+      }
 
 .node-control {
   cursor: pointer;

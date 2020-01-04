@@ -86,7 +86,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <nav>
+        <div className="floater">
           <h1>XML Fiddler</h1>
           <p>Upload XML to play with</p>
           <input type="file" onChange={this.resetFile}/>
@@ -95,13 +95,23 @@ class App extends Component {
           <footer>
             <p>By <a href="https://github.com/Masa331">me</a>. Report issues <a href="https://github.com/Masa331/xml_fiddler">here</a>.</p>
           </footer>
-        </nav>
+        </div>
 
-        <section>
+        <section id="groups">
+          <nav>
+            <a class="groups" href="#groups"><b>Groups</b></a>
+            <a class="document" href="#document">Document</a>
+          </nav>
+
           <Values parsed={this.state.source} xpaths={this.state.xpaths} />
         </section>
 
-        <main className="highlight">
+        <main className="highlight" id="document">
+          <nav>
+            <a class="groups" href="#groups">Groups</a>
+            <a class="document" href="#document"><b>Document</b></a>
+          </nav>
+
           <Fiddler key={Math.random()} parsed={this.state.source} groupFunc={this.groupFunc} />
         </main>
       </React.Fragment>
