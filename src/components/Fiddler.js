@@ -19,6 +19,7 @@ function Fiddler(props) {
               attributes={element.attributes}
               text={element.elements[0].text}
               cdata={element.elements[0].cdata}
+              xpath={element.xpath}
             />;
         })}
       </React.Fragment>

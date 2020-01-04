@@ -7,9 +7,9 @@ function OpenTag(props) {
     return <Attribute key={index} name={key} value={value}/>;
   });
 
-  const controls = (props.functions || []).map(([label, handler, classes], index) => {
+  const controls = (props.functions || []).map(([label, handler, classes, title], index) => {
     return(
-      <NodeControl key={index} classes={classes} handler={handler} label={label} />
+      <NodeControl key={index} classes={classes} handler={handler} label={label} title={title} />
     );
   });
 

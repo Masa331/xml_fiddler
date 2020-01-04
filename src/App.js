@@ -3,11 +3,24 @@ import convert from 'xml-js';
 
 import Fiddler from './components/Fiddler.js';
 
+function addXpaths(tree, parentXPath) {
+  tree.xpath = parentXPath + '/' + tree.name;
+
+  (tree.elements || []).forEach((element) => {
+    addXpaths(element, tree.xpath);
+  })
+
+  return tree;
+}
+
 function parseXml(xml) {
   const json = convert.xml2json(xml, { compact: false });
   const parsed = JSON.parse(json);
 
-  return parsed;
+  parsed.name = ''; // so we have proper root xpath and not '/undefined/'
+  const withXpaths = addXpaths(parsed, '');
+
+  return withXpaths;
 }
 
 const exampleXml = `
@@ -73,8 +86,8 @@ class App extends Component {
             <p>By <a href="https://github.com/Masa331">me</a>. Report issues <a href="https://github.com/Masa331/xml_fiddler">here</a>.</p>
           </footer>
         </nav>
-        <main className="highlight">
 
+        <main className="highlight">
           <Fiddler key={Math.random()} parsed={this.state.source} />
         </main>
       </React.Fragment>

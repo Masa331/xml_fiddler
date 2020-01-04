@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
 import NodeControl from './NodeControl.js';
+import { copyToClipboard } from './utils.js';
 
 class TextNode extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class TextNode extends Component {
 
     this.collapse = this.collapse.bind(this);
     this.expand = this.expand.bind(this);
+    this.copyXpath = this.copyXpath.bind(this);
   }
 
   state = {};
@@ -19,6 +21,10 @@ class TextNode extends Component {
 
   expand() {
     this.setState({ collapsed: false });
+  };
+
+  copyXpath() {
+    copyToClipboard(this.props.xpath);
   };
 
   render() {
@@ -38,13 +44,14 @@ class TextNode extends Component {
     const nodeClasses = `node ${collapsedClass}`;
 
     const functions = [
-      ["+", this.expand, 'hide-in-expanded'],
-      ["-", this.collapse, 'hide-in-collapsed']
+      ["+", this.expand, 'hide-in-expanded', 'expand node'],
+      ["-", this.collapse, 'hide-in-collapsed', 'collapse node'],
+      ["xpath", this.copyXpath, '', this.props.xpath + ' - click to copy']
     ]
 
-    const controls = functions.map(([label, handler, classes], index) => {
+    const controls = functions.map(([label, handler, classes, title], index) => {
       return(
-        <NodeControl key={index} classes={classes} handler={handler} label={label} />
+        <NodeControl key={index} classes={classes} handler={handler} label={label} title={title} />
       );
     });
 

@@ -3,6 +3,7 @@ import OpenTag from './OpenTag.js';
 import CloseTag from './CloseTag.js';
 import TextNode from './TextNode.js';
 import EmptyTag from './EmptyTag.js';
+import { copyToClipboard } from './utils.js';
 
 class Node extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Node extends Component {
     this.expand = this.expand.bind(this);
     this.collapseSubNodes = this.collapseSubNodes.bind(this);
     this.expandSubNodes = this.expandSubNodes.bind(this);
+    this.copyXpath = this.copyXpath.bind(this);
   }
 
   state = {};
@@ -50,6 +52,10 @@ class Node extends Component {
     });
   };
 
+  copyXpath() {
+    copyToClipboard(this.props.xpath);
+  };
+
   render() {
     if(this.isEmpty(this.props.elements)) {
       return <EmptyTag { ...this.props } />;
@@ -69,6 +75,7 @@ class Node extends Component {
           elements={element.elements}
           attributes={element.attributes}
           ref={componentRef}
+          xpath={element.xpath}
         />;
       });
       this.childRefs = newRefs;
@@ -82,10 +89,11 @@ class Node extends Component {
       const nodeClasses = `node ${collapsedClass}`;
 
       const functions = [
-        ["+", this.expand, 'hide-in-expanded'],
-        ["-", this.collapse, 'hide-in-collapsed'],
-        ["++", this.expandSubNodes, 'hide-in-collapsed'],
-        ["--", this.collapseSubNodes, 'hide-in-collapsed']
+        ["+", this.expand, 'hide-in-expanded', 'expand node'],
+        ["-", this.collapse, 'hide-in-collapsed', 'collapse node'],
+        ["++", this.expandSubNodes, 'hide-in-collapsed', 'expand sub-nodes'],
+        ["--", this.collapseSubNodes, 'hide-in-collapsed', 'collapse sub-nodes'],
+        ["xpath", this.copyXpath, '', this.props.xpath + ' - click to copy']
       ];
 
       return (
