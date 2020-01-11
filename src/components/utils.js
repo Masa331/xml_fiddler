@@ -8,7 +8,9 @@ function copyToClipboard(value) {
 };
 
 function extractText(node) {
-  if (node.elements[0].text) {
+  if (node === undefined || node.elements === undefined) {
+    return null;
+  } else if (node.elements[0].text) {
     return node.elements[0].text;
   } else if(node.elements[0].cdata) {
     return `<![CDATA[${node.elements[0].cdata}]]>`
