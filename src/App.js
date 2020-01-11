@@ -34,7 +34,7 @@ const exampleXml = `
   <details>
     <param>something 1</param>
     <param>something 2</param>
-
+    <param>something 2</param>
     <complicatedParam1>
       <param>something</param>
     </complicatedParam1>
