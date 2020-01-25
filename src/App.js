@@ -96,19 +96,15 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="floater">
-          <h1>XML Fiddler</h1>
-          <p>Upload XML to play with</p>
-          <input type="file" onChange={this.resetFile}/>
-            <p>Or <button onClick={this.loadExample}>load example</button></p>
-
-          <footer>
-            <p>By <a href="https://github.com/Masa331">me</a>. Report issues <a href="https://github.com/Masa331/xml_fiddler">here</a>.</p>
-          </footer>
-        </div>
-
         <section id="extracts">
           <div className="nav-container">
+            <h1>XML Fiddler</h1>
+
+            <div className="buttons">
+              <button onClick={this.loadExample}>load example</button>
+              <input type="file" onChange={this.resetFile}/>
+            </div>
+
             <nav>
               <a className="extracts" href="#extracts"><b>Extracts</b></a>
               <a className="document" href="#document">Document</a>
@@ -120,8 +116,16 @@ class App extends Component {
 
         <main className="highlight" id="document">
           <div className="nav-container">
+            <h1>XML Fiddler</h1>
+
+            <div className="buttons">
+              <button onClick={this.loadExample}>load example</button>
+              <input type="file" onChange={this.resetFile}/>
+            </div>
+
             <nav>
               <a className="extracts" href="#extracts">Extracts</a>
+              <a className="issues" href="https://github.com/Masa331/xml_fiddler">Issues</a>
               <a className="document" href="#document"><b>Document</b></a>
             </nav>
           </div>

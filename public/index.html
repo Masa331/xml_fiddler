@@ -21,57 +21,49 @@ body {
   font-size: 13px;
 }
 
-div.floater {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-
-  border: 1px solid grey;
-  border-radius: 10px;
-
-  padding-top: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 0px;
-
-  background: floralwhite;
+div.nav-container {
+  padding: 10px;
+  border-bottom: 1px solid grey;
 }
-div.floater > footer {
-  margin-top: 10px;
-  border-top: 1px solid grey;
-  color: grey;
+.nav-container h1 {
+  display: inline-block;
+}
+nav {
+  width: 300px;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  font-size: 1rem;
+}
+nav > a {
+  grid-row: 1;
+}
+nav > a.document{
+  grid-column: 1;
+}
+nav > a.extracts{
+  grid-column: 2;
+}
+nav > a.issues{
+  grid-column: 3;
 }
 
-      div.nav-container {
-        padding: 10px;
-        border-bottom: 1px solid grey;
-      }
-      nav {
-        width: 210px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-
-        font-size: 1rem;
-      }
-      nav > a {
-        grid-row: 1;
-      }
-      nav > a.document{
-        grid-column: 1;
-      }
-      nav > a.extracts{
-        grid-column: 2;
-      }
-
-      #document:not(:target) {
-        display: none;
-      }
-      #extracts:not(:target) {
-        display: none;
-      }
-      #extracts:not(:target) + #document:not(:target) {
-        display: block;
-      }
+#document:not(:target) {
+  display: none;
+}
+#extracts:not(:target) {
+  display: none;
+}
+#extracts:not(:target) + #document:not(:target) {
+  display: block;
+}
+.buttons {
+  display: inline-block;
+  margin-left: 50px;
+}
+.buttons button + input {
+  margin-left: 10px;
+}
 
 .node-control {
   cursor: pointer;
