@@ -26,6 +26,8 @@ class Extract extends Component {
       ["remove", () => { this.props.removeExtract(this.props.xpath) }, '', 'remove extract']
     ]
 
+    const numberOfItems = this.props.values.length;
+
     const controls = functions.map(([label, handler, classes, title], index) => {
       return(
         <NodeControl key={index} classes={classes} handler={handler} label={label} title={title} />
@@ -56,7 +58,7 @@ class Extract extends Component {
 
     const content =
       <div className="extract">
-        <p><b>{this.props.xpath}</b>{ controls } { checkboxes }</p>
+        <p><b>{this.props.xpath}</b> { numberOfItems } items { controls } { checkboxes }</p>
         <p>{values.join(', ')}</p>
       </div>;
     return content;
