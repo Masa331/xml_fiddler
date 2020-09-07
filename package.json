@@ -5,9 +5,9 @@
   "homepage": "https://masa331.github.io/xml_fiddler/",
   "license": "MIT",
   "dependencies": {
-    "gh-pages": "^2.1.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "gh-pages": "^2.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-scripts": "1.1.4",
     "xml-js": "^1.6.7"
   },

@@ -107,7 +107,6 @@ class App extends Component {
 
             <nav>
               <a className="extracts" href="#extracts"><b>Extracts</b></a>
-              <a className="issues" href="https://github.com/Masa331/xml_fiddler">Issues</a>
               <a className="document" href="#document">Document</a>
             </nav>
           </div>
@@ -126,7 +125,6 @@ class App extends Component {
 
             <nav>
               <a className="extracts" href="#extracts">Extracts</a>
-              <a className="issues" href="https://github.com/Masa331/xml_fiddler">Issues</a>
               <a className="document" href="#document"><b>Document</b></a>
             </nav>
           </div>

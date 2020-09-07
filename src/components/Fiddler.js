@@ -27,9 +27,23 @@ function Fiddler(props) {
       </React.Fragment>
   } else {
     content =
-      <React.Fragment>
-        No xml uploaded.
-      </React.Fragment>
+      <div>
+        <p>
+          This is simple tool for quick XML exploration.
+        </p>
+
+        <p>
+          It can group collapse nodes, click to copy xpaths and extract values from nodes. It probably won't work with too big files but it isn't the goal.
+        </p>
+
+        <p>
+          Now you can load example file or upload your own in the menu.
+        </p>
+
+        <p>
+          Created by <a href="https://masa331.github.io/">Premysl Donat</a>. You can file and issue on <a href="https://github.com/Masa331/xml_fiddler">Github</a>.
+        </p>
+      </div>
   }
 
   return content;

@@ -1,8 +1,8 @@
 # XML Fiddler
 
-XML Fiddler
+XML Fiddler is simple online tool for quick XML exploration. It is [online here](https://masa331.github.io/xml_fiddler/).
 
-Runs here: https://masa331.github.io/xml_fiddler/
+It can group collapse nodes, click to copy xpaths and extract values from nodes. It probably won't work with too big files but it isn't the goal.
 
 ## Notes
 
