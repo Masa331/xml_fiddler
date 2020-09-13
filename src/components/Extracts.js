@@ -48,7 +48,7 @@ class Extract extends Component {
 
     let values = this.props.values;
     if (this.state.uniqueValues) {
-      values = [... new Set(values)];
+      values = [...new Set(values)];
     }
     if (this.state.minMaxValues) {
       const min = values.reduce((min, val) => val < min ? val : min, values[0]);
