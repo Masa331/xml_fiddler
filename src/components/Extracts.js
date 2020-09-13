@@ -85,7 +85,10 @@ function Extracts(props) {
         </div>
       </React.Fragment>;
   } else {
-    content = "You have no extracts set."
+    content =
+      <p>
+        When you click on 'Extract' button near XML node in Document tab the extracted data will show up here. Now you don't have any extracts yet.
+      </p>
   }
 
   return content;

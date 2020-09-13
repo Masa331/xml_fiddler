@@ -29,11 +29,15 @@ function Fiddler(props) {
     content =
       <div>
         <p>
-          This is simple tool for quick XML exploration.
+          This is a simple tool for quick XML exploration.
         </p>
 
         <p>
-          It can group collapse nodes, click to copy xpaths and extract values from nodes. It probably won't work with too big files but it isn't the goal.
+          Currently it can group collapse nodes, click to copy xpaths and extract values from nodes. It probably won't work with files too big but it isn't the goal now.
+        </p>
+
+        <p>
+          If you miss some feature or encounter a bug, please let me know via <a href="https://github.com/Masa331/xml_fiddler">Github issues</a>. I will be happy to look into it.
         </p>
 
         <p>
@@ -41,7 +45,7 @@ function Fiddler(props) {
         </p>
 
         <p>
-          Created by <a href="https://masa331.github.io/">Premysl Donat</a>. You can file and issue on <a href="https://github.com/Masa331/xml_fiddler">Github</a>.
+          Created by <a href="https://github.com/Masa331">Premysl Donat</a>.
         </p>
       </div>
   }

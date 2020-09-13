@@ -106,7 +106,7 @@ class App extends Component {
             </div>
 
             <nav>
-              <a className="extracts" href="#extracts"><b>Extracts</b></a>
+              <a className="extracts" href="#extracts"><b>Extracts({this.state.xpaths.length})</b></a>
               <a className="document" href="#document">Document</a>
             </nav>
           </div>
@@ -114,7 +114,7 @@ class App extends Component {
           <Extracts parsed={this.state.source} xpaths={this.state.xpaths} removeExtract={this.removeExtract} />
         </section>
 
-        <main className="highlight" id="document">
+        <section className="highlight" id="document">
           <div className="nav-container">
             <h1>XML Fiddler</h1>
 
@@ -124,13 +124,13 @@ class App extends Component {
             </div>
 
             <nav>
-              <a className="extracts" href="#extracts">Extracts</a>
+              <a className="extracts" href="#extracts">Extracts({this.state.xpaths.length})</a>
               <a className="document" href="#document"><b>Document</b></a>
             </nav>
           </div>
 
           <Fiddler key={this.state.key} parsed={this.state.source} addExtract={this.addExtract} />
-        </main>
+        </section>
       </React.Fragment>
     );
   }
